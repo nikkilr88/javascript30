@@ -63,10 +63,12 @@
     <script>
         function playSound(e) {
             const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
-
             const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
 
+            //If no audio file with data-key match, return
             if (!audio) return;
+
+            //Start audio over and play
             audio.currentTime = 0;
             audio.play();
 
