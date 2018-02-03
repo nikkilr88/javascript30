@@ -104,6 +104,45 @@
   </div>
 
 <script>
+  const inputs = Array.from(document.querySelectorAll('.inbox input[type=checkbox]'));
+  let first, last;
+
+  inputs.forEach((input, i) => {
+    input.addEventListener('click', checkBetween)
+  })
+
+  // My solution
+  function checkBetween(e) {
+    if(e.shiftKey) {
+      last = inputs.indexOf(this);
+      let min = Math.min(...[first, last]);
+      let max = Math.max(...[first, last]);
+
+      for (let i = min; i < max; i++) {
+        inputs[i].checked = 'checked';
+      }
+    }
+    first = inputs.indexOf(this);
+  }
+
+  // Official solution
+  let lastChecked;
+  function handleCheck(e) {
+    let inBetween = false;
+    if(e.shiftKey && this.checked) {
+      inputs.forEach(input => {
+        if(input === this || input === lastChecked) {
+          inBetween = !inBetween;
+        }
+
+        if(inBetween) {
+          input.checked = true;
+        }
+      })
+    }
+    lastChecked = this;
+  }
+  
 </script>
 </body>
 </html>
