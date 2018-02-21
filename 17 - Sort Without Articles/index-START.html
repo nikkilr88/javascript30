@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Sort Without Articles</title>
 </head>
+
 <body>
 
   <style>
@@ -25,10 +27,12 @@
       padding: 0;
       box-shadow: 0 0 0 20px rgba(0, 0, 0, 0.05);
     }
+
     #bands li {
       border-bottom: 1px solid #efefef;
       padding: 20px;
     }
+
     #bands li:last-child {
       border-bottom: 0;
     }
@@ -37,16 +41,71 @@
       color: #ffc600;
       text-decoration: none;
     }
-
   </style>
 
   <ul id="bands"></ul>
 
-<script>
-const bands = ['The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'Norma Jean', 'The Bled', 'Say Anything', 'The Midway State', 'We Came as Romans', 'Counterparts', 'Oh, Sleeper', 'A Skylit Drive', 'Anywhere But Here', 'An Old Dog'];
+  <script>
+    const ul = document.querySelector('#bands');
 
+    const bands = ['The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'Norma Jean', 'The Bled',
+      'Say Anything', 'The Midway State', 'We Came as Romans', 'Counterparts', 'Oh, Sleeper', 'A Skylit Drive',
+      'Anywhere But Here', 'An Old Dog'
+    ];
 
-</script>
+    /*
+    MY VERY LONG SOLUTION :D
+
+      display(bands);
+
+      function display(bands) {
+        let bandList = sortBands(bands);
+
+        let html = bandList.map(item => {
+          return `
+            <li>${item}</li>
+          `;
+        }).join('');
+
+        ul.innerHTML = html;
+      }
+
+      function sortBands(bands) {
+        return bands.sort((a, b) => {
+
+          let aTitle = removeArticles(a);
+          let bTitle = removeArticles(b);
+
+          return (aTitle < bTitle) ? -1 :
+            (aTitle > bTitle) ? 1 :
+            0;
+        });
+      }
+
+      function removeArticles(title) {
+        let articles = ['a', 'an', 'the'];
+        let firstWord = title.split(' ')[0].toLowerCase();
+
+        if (articles.includes(firstWord)) {
+          title = title.split(' ')[1];
+        }
+
+        return title;
+      }
+
+    */
+
+    // OFFICIAL SOLUTION
+    
+    function strip(bandName) {
+      return bandName.replace(/^(a |the |an )/i, '').trim();
+    }
+
+    const sortedBands = bands.sort((a, b) => strip(a) > strip(b) ? 1 : -1)
+
+    ul.innerHTML = sortedBands.map(band => `<li>${band}</li>`);
+  </script>
 
 </body>
+
 </html>
